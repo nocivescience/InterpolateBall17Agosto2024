@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"
+        integrity="sha512-0zGLOFv/+OQ6YfVCSGDQWhrDRx0ONmBqWvs3gI4olm8i6xtKoG1FhEnB4eTaWCVnojyfUDgE8Izeln+mAJAkFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let x = 0;
+        let y = 0;
+
+        function setup() {
+            createCanvas(720, 400);
+            noStroke();
+            textOutput(); // This line is not in the original code
+        }
+
+        function draw() {
+            background(51);
+
+            // lerp() calculates a number between two numbers at a specific increment.
+            // The amt parameter is the amount to interpolate between the two values
+            // where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5
+            // is halfway in between, etc.
+
+            // Move 5% of the way to the mouse location each frame
+            x = lerp(x, mouseX, 0.05);
+            y = lerp(y, mouseY, 0.05);
+
+            if (x < 0){
+                x = 0;
+            }
+            if (x > 720){
+                x = 720;
+            }
+            if (y < 0){
+                y = 0;
+            }
+            if (y > 400){
+                y = 400;
+            }
+
+            fill(255);
+            stroke(255);
+            ellipse(x, y, 66, 66);
+        }
+    </script>
+</body>
+
+</html>
