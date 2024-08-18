@@ -14,40 +14,31 @@
     <script>
         let x = 0;
         let y = 0;
+        let startColor, endColor;
 
         function setup() {
             createCanvas(720, 400);
             noStroke();
-            textOutput(); // This line is not in the original code
+            startColor = color(255, 0, 0); // Rojo
+            endColor = color(0, 0, 255); // Azul
         }
 
         function draw() {
             background(51);
 
-            // lerp() calculates a number between two numbers at a specific increment.
-            // The amt parameter is the amount to interpolate between the two values
-            // where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5
-            // is halfway in between, etc.
-
-            // Move 5% of the way to the mouse location each frame
+            // Interpolación lineal para la posición
             x = lerp(x, mouseX, 0.05);
             y = lerp(y, mouseY, 0.05);
 
-            if (x < 0){
-                x = 0;
-            }
-            if (x > 720){
-                x = 720;
-            }
-            if (y < 0){
-                y = 0;
-            }
-            if (y > 400){
-                y = 400;
-            }
+            // Confinar la posición dentro del canvas
+            x = constrain(x, 0, width);
+            y = constrain(y, 0, height);
 
-            fill(255);
-            stroke(255);
+            // Interpolación de color basada en la posición
+            let amt = map(dist(x, y, mouseX, mouseY), 0, dist(0, 0, width, height), 0, 1);
+            let currentColor = lerpColor(startColor, endColor, amt);
+
+            fill(currentColor);
             ellipse(x, y, 66, 66);
         }
     </script>
